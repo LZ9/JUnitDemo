@@ -1,14 +1,14 @@
 package com.lodz.android.junitdemo;
 
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.ActivityInstrumentationTestCase2;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,19 +17,16 @@ import org.junit.runner.RunWith;
  * Created by zhouL on 2018/7/25.
  */
 @RunWith(AndroidJUnit4.class)
-public class MainActivityInstrumentationTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class MainActivityInstrumentationTest {
 
-    public MainActivityInstrumentationTest() {
-        super(MainActivity.class);
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-    }
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void onCreate() {
-        getActivity();
         try {
             Thread.sleep(1000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -38,7 +35,7 @@ public class MainActivityInstrumentationTest extends ActivityInstrumentationTest
 
         try {
             Thread.sleep(1000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -47,11 +44,11 @@ public class MainActivityInstrumentationTest extends ActivityInstrumentationTest
 
         try {
             Thread.sleep(1000);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String expectedText  = "result : abc123";
+        String expectedText = "result : abc123";
         Espresso.onView(ViewMatchers.withId(R.id.result_tv))
                 .check(ViewAssertions.matches(ViewMatchers.withText(expectedText)));
     }
